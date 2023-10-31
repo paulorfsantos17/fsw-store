@@ -19,15 +19,15 @@ model Category {
 }
 
 model Product {
-  id              String   @id @default(uuid())
-  name            String
-  slug            String
-  imageUrl        String
-  description     String
-  basePrice       Decimal  @db.Decimal(8, 2)
-  discountPercent Int      @default(0)
-  category        Category @relation(fields: [categoryId], references: [id])
-  categoryId      String
+  id                 String   @id @default(uuid())
+  name               String
+  slug               String
+  imageUrls          String[]
+  description        String
+  basePrice          Decimal  @db.Decimal(8, 2)
+  discountPercentage Int      @default(0)
+  category           Category @relation(fields: [categoryId], references: [id])
+  categoryId         String
 }
 
 // Schema Google OAuth
