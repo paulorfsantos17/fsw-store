@@ -21,21 +21,38 @@ export default async function Home() {
     },
   });
 
+  const phones = await prismaClient.product.findMany({
+    where: {
+      category: {
+        slug: "headphones",
+      },
+    },
+  });
+
   return (
-    <div>
+    <div className=" flex flex-col gap-8">
       <PromoBanner src="/banner-.01.png" alt="até 55% de desconto este mês" />
 
-      <div className="mt-8 px-5">
+      <div className=" px-5">
         <Categories />
       </div>
-      <div className="mt-8">
+      <div>
         <SectionTitle>Ofertas</SectionTitle>
         <ProductList products={deals} />
       </div>
+
       <PromoBanner src="/banner-02.png" alt="até 55% de desconto em Mouses" />
-      <div className="mt-8">
+
+      <div>
         <SectionTitle>Teclados</SectionTitle>
         <ProductList products={keyboards} />
+      </div>
+
+      <PromoBanner src="/banner-03.png" alt="até 55% de desconto em Phones" />
+
+      <div>
+        <SectionTitle>Fones</SectionTitle>
+        <ProductList products={phones} />
       </div>
     </div>
   );
