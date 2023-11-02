@@ -3,17 +3,32 @@ import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICONS } from "@/constants/category-icons";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
-import { Product } from "@prisma/client";
+import { Category, Product } from "@prisma/client";
 
-const CategoryProductsPage = async ({ params }: any) => {
-  const category = await prismaClient.category.findFirst({
-    where: {
-      slug: params.slug,
-    },
-    include: {
-      products: true,
-    },
-  });
+interface CategoryProductsProps {
+  params: {
+    slug: string;
+  };
+}
+
+interface ProductsListByCategory extends Category {
+  products: Product[];
+}
+
+const CategoryProductsPage = async ({ params }: CategoryProductsProps) => {
+  const category: ProductsListByCategory | null =
+    await prismaClient.category.findFirst({
+      where: {
+        slug: params.slug,
+      },
+      include: {
+        products: true,
+      },
+    });
+
+  if (!category) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col  gap-8 p-5">
