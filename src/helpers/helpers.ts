@@ -1,7 +1,7 @@
 import { Product } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 
-interface ProductWithTotalPrice  extends Product {
+ export interface ProductWithTotalPrice  extends Product {
   totalPrice: number;
 }
 
