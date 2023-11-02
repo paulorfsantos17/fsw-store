@@ -18,7 +18,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           width={0}
           sizes="100vw"
           alt={product.name}
-          className="h-[90px] w-auto"
+          className="h-auto max-h-[70%] w-auto max-w-[80%]"
           style={{ objectFit: "contain" }}
         />
         {product.discountPercentage > 0 && (
