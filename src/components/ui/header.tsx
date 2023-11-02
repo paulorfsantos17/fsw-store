@@ -14,6 +14,7 @@ import { signIn, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback } from "./avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Separator } from "./separator";
+import Link from "next/link";
 
 const Header = () => {
   const handleLoginClick = async () => {
@@ -69,13 +70,15 @@ const Header = () => {
               Ofertas
             </Button>
 
-            <Button
-              variant="outline"
-              className="flex w-full justify-start gap-2"
-            >
-              <ListOrderedIcon size={16} />
-              Catálogo
-            </Button>
+            <Link href="/catalog">
+              <Button
+                variant="outline"
+                className="flex w-full justify-start gap-2"
+              >
+                <ListOrderedIcon size={16} />
+                Catálogo
+              </Button>
+            </Link>
           </div>
         </SheetContent>
       </Sheet>
