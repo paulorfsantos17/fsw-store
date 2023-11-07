@@ -4,6 +4,7 @@ import { CATEGORY_ICONS } from "@/constants/category-icons";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
 import { Category, Product } from "@prisma/client";
+import BadgeTitle from "@/components/ui/BadgeTitle";
 
 interface CategoryProductsProps {
   params: {
@@ -32,13 +33,10 @@ const CategoryProductsPage = async ({ params }: CategoryProductsProps) => {
 
   return (
     <div className="flex flex-col  gap-8 p-5">
-      <Badge
-        variant="outline"
-        className="w-fit gap-1 border-2 border-primary px-3 py-[0.375rem] text-base uppercase"
-      >
-        {CATEGORY_ICONS[params.slug as keyof typeof CATEGORY_ICONS]}
-        {category?.name}
-      </Badge>
+      <BadgeTitle
+        icon={CATEGORY_ICONS[params.slug as keyof typeof CATEGORY_ICONS]}
+        title={category?.name}
+      />
 
       <div className="grid grid-cols-2 gap-8">
         {category?.products.map((product) => (
