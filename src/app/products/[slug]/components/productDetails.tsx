@@ -1,6 +1,6 @@
 "use client";
 
-import BadgePertentageDiscount from "@/app/(home)/components/BadgePertentageDiscount";
+import BadgePertentageDiscount from "@/components/ui/BadgePertentageDiscount";
 import { Button } from "@/components/ui/button";
 import { ProductWithTotalPrice } from "@/helpers/product";
 import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
