@@ -1,9 +1,8 @@
-import { Badge } from "@/components/ui/badge";
 import { ProductWithTotalPrice } from "@/helpers/product";
 
-import { ArrowDownIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import BadgePertentageDiscount from "./BadgePertentageDiscount";
 
 interface ProductItemProps {
   product: ProductWithTotalPrice;
@@ -24,10 +23,10 @@ const ProductItem = ({ product }: ProductItemProps) => {
             style={{ objectFit: "contain" }}
           />
           {product.discountPercentage > 0 && (
-            <Badge className="absolute left-3 top-3 flex gap-[3px] px-2 py-[2px]">
-              <ArrowDownIcon size={16} />
-              {product.discountPercentage}%
-            </Badge>
+            <BadgePertentageDiscount
+              classNames="absolute left-3 top-3 flex gap-[3px] px-2 py-[2px]"
+              discountPercentage={product.discountPercentage}
+            />
           )}
         </div>
         <div>
