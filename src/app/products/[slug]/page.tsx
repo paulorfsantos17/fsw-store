@@ -44,11 +44,6 @@ const ProductsDetailsPage = async ({ params }: ProductDetailsProps) => {
     return null;
   }
 
-  console.log(
-    "🚀 ~ file: page.tsx:40 ~ ProductsDetailsPage ~ product;:",
-    product,
-  );
-
   return (
     <div className="flex flex-col gap-8 pb-8">
       <ProductsImage imageUrls={product.imageUrls} name={product.name} />
