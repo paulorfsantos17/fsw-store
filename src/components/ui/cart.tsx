@@ -6,9 +6,21 @@ import CartItem from "./cartItem";
 import { Separator } from "./separator";
 import { Button } from "./button";
 import { ScrollArea } from "./scroll-area";
+import { createCheckout } from "@/actions/checkout";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const { products, subTotal, total, totalDiscount } = useContext(CartContext);
+
+  const handleFinishPurchaseClick = async () => {
+    const checkout = await createCheckout(products);
+
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+
+    stripe?.redirectToCheckout({
+      sessionId: checkout.id,
+    });
+  };
 
   return (
     <div className="flex h-full w-full  flex-col gap-8 overflow-hidden">
@@ -53,7 +65,9 @@ const Cart = () => {
           <p className="text-sm font-bold">R$ {total.toFixed(2)}</p>
         </div>
         <Separator />
-        <Button className="uppercase">Finalizar Compra</Button>
+        <Button className="uppercase" onClick={handleFinishPurchaseClick}>
+          Finalizar Compra
+        </Button>
       </div>
     </div>
   );

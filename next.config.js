@@ -6,6 +6,9 @@ const nextConfig = {
       "uploaddeimagens.com.br"
     ],
   },
+  experimental: {
+    serverActions: true,
+  }
 }
 
 module.exports = nextConfig
