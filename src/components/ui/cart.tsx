@@ -1,4 +1,4 @@
-import { Heading1, ShoppingCartIcon } from "lucide-react";
+import { ShoppingCartIcon } from "lucide-react";
 import BadgeTitle from "./BadgeTitle";
 import { CartContext } from "@/providers/cart";
 import { useContext } from "react";
