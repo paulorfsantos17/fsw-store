@@ -22,7 +22,7 @@ export const createCheckout =  async (products : CartProduct[]) => {
           },
           unit_amount: product.totalPrice *100  
         },
-          quantity: product. quantity
+          quantity: product.quantity
       }
     })
   })
