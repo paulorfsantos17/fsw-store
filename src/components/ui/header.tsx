@@ -1,5 +1,6 @@
 "use client";
 import {
+  HomeIcon,
   ListOrderedIcon,
   LogInIcon,
   LogOutIcon,
@@ -69,6 +70,17 @@ const Header = () => {
                 <Separator />
               </div>
             )}
+            <SheetClose asChild>
+              <Link href="/">
+                <Button
+                  variant="outline"
+                  className="flex w-full justify-start gap-2"
+                >
+                  <HomeIcon size={16} />
+                  Home
+                </Button>
+              </Link>
+            </SheetClose>
             <Button
               variant="outline"
               className="flex w-full justify-start gap-2"
