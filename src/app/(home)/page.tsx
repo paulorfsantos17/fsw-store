@@ -13,6 +13,7 @@ export default async function Home() {
       },
     },
   });
+
   const keyboards = await prismaClient.product.findMany({
     where: {
       category: {
