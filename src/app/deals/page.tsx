@@ -1,4 +1,5 @@
 import BadgeTitle from "@/components/ui/BadgeTitle";
+import Loading from "@/components/ui/loading";
 import ProductItem from "@/components/ui/productItem";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
@@ -12,6 +13,10 @@ const PageDeals = async () => {
       },
     },
   });
+
+  if (!deals) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex flex-col gap-8 p-5">

@@ -5,6 +5,7 @@ import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
 import { Category, Product } from "@prisma/client";
 import BadgeTitle from "@/components/ui/BadgeTitle";
+import Loading from "@/components/ui/loading";
 
 interface CategoryProductsProps {
   params: {
@@ -28,7 +29,7 @@ const CategoryProductsPage = async ({ params }: CategoryProductsProps) => {
     });
 
   if (!category) {
-    return null;
+    return <Loading />;
   }
 
   return (

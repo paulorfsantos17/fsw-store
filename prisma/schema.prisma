@@ -19,15 +19,16 @@ model Category {
 }
 
 model Product {
-  id                 String   @id @default(uuid())
+  id                 String         @id @default(uuid())
   name               String
   slug               String
   imageUrls          String[]
   description        String
-  basePrice          Decimal  @db.Decimal(8, 2)
-  discountPercentage Int      @default(0)
-  category           Category @relation(fields: [categoryId], references: [id])
+  basePrice          Decimal        @db.Decimal(8, 2)
+  discountPercentage Int            @default(0)
+  category           Category       @relation(fields: [categoryId], references: [id])
   categoryId         String
+  OrderProduct       OrderProduct[]
 }
 
 // Schema Google OAuth
@@ -67,6 +68,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Order         Order[]
 }
 
 model VerificationToken {
@@ -75,4 +77,30 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model OrderProduct {
+  id                 String  @id @default(uuid())
+  productId          String
+  product            Product @relation(fields: [productId], references: [id])
+  basePrice          Decimal @db.Decimal(8, 2)
+  discountPercentage Int     @default(0)
+  Order              Order?  @relation(fields: [orderId], references: [id])
+  orderId            String?
+  quantity           Int
+}
+
+model Order {
+  id            String         @id @default(uuid())
+  userId        String
+  user          User           @relation(fields: [userId], references: [id])
+  orderProducts OrderProduct[]
+  createAt      DateTime       @default(now())
+  updateAt      DateTime       @default(now()) @updatedAt
+  status        OrderStatus    @default(WAITING_FOR_PAYMENT)
+}
+
+enum OrderStatus {
+  WAITING_FOR_PAYMENT
+  PAYMENT_CONFIRMED
 }

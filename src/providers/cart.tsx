@@ -37,9 +37,7 @@ export const CartContext = createContext<ICartContext>({
 });
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [products, setProducts] = useState<CartProduct[]>(
-    JSON.parse(localStorage.getItem("@fsw-store/cart-products") || "[]"),
-  );
+  const [products, setProducts] = useState<CartProduct[]>([]);
 
   const addProductToCart = (product: CartProduct) => {
     const productIsAlreadyOnCart = products.some(
@@ -106,6 +104,12 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
       0,
     );
   }, [products]);
+
+  useEffect(() => {
+    setProducts(
+      JSON.parse(localStorage.getItem("@fsw-store/cart-products") || "[]"),
+    );
+  }, []);
 
   const total = useMemo(() => {
     return products.reduce(

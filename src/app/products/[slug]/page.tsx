@@ -5,6 +5,7 @@ import ProductsImage from "./components/productsImage";
 import ProductDetails from "./components/productDetails";
 import { computeProductTotalPrice } from "@/helpers/product";
 import ProductList from "@/components/ui/productList";
+import Loading from "@/components/ui/loading";
 
 interface ProductDetailsProps {
   params: {
@@ -41,7 +42,7 @@ const ProductsDetailsPage = async ({ params }: ProductDetailsProps) => {
     });
 
   if (!product) {
-    return null;
+    return <Loading />;
   }
 
   return (
