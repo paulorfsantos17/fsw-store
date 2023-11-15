@@ -17,7 +17,7 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "./sheet";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, signOut } from "next-auth/react";
 import { Avatar, AvatarFallback } from "./avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Separator } from "./separator";
@@ -28,7 +28,11 @@ const Header = () => {
   const handleLoginClick = async () => {
     await signIn();
   };
+  const handleLogoutClick = async () => {
+    await signOut();
+  };
   const { status, data } = useSession();
+
   return (
     <Card className="flex items-center justify-between p-[1.875rem]">
       <Sheet>
@@ -54,21 +58,42 @@ const Header = () => {
               </Button>
             )}
             {status === "authenticated" && data?.user && (
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2 py-4">
-                  <Avatar>
-                    <AvatarFallback>
-                      {data.user.name?.[0].toUpperCase()}
-                    </AvatarFallback>
-                    {data.user.image && <AvatarImage src={data.user.image} />}
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <p className="font-medium">{data.user.name}</p>
-                    <p className="text-sm opacity-75">Boas compras!</p>
+              <>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 py-4">
+                    <Avatar>
+                      <AvatarFallback>
+                        {data.user.name?.[0].toUpperCase()}
+                      </AvatarFallback>
+                      {data.user.image && <AvatarImage src={data.user.image} />}
+                    </Avatar>
+                    <div className="flex flex-col">
+                      <p className="font-medium">{data.user.name}</p>
+                      <p className="text-sm opacity-75">Boas compras!</p>
+                    </div>
                   </div>
+                  <Separator />
                 </div>
-                <Separator />
-              </div>
+                <Button
+                  variant="outline"
+                  className="flex w-full justify-start gap-2"
+                  onClick={handleLogoutClick}
+                >
+                  <LogOutIcon size={16} />
+                  Fazer Logout
+                </Button>
+                <SheetClose asChild>
+                  <Link href="/orders">
+                    <Button
+                      variant="outline"
+                      className="flex w-full justify-start gap-2"
+                    >
+                      <ListOrderedIcon size={16} />
+                      Meus Peidos
+                    </Button>
+                  </Link>
+                </SheetClose>
+              </>
             )}
             <SheetClose asChild>
               <Link href="/">
