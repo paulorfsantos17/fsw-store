@@ -1,6 +1,10 @@
 "use client";
 
-import { ProductWithTotalPrice } from "@/helpers/product";
+import {
+  ProductWithTotalPrice,
+  computeSubtotalProductsToCart,
+  computeTotalProductsToCart,
+} from "@/helpers/product";
 
 import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 
@@ -99,11 +103,14 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const subTotal = useMemo(() => {
-    return products.reduce(
-      (acc, product) => acc + Number(product.basePrice) * product.quantity,
-      0,
-    );
+    return computeSubtotalProductsToCart(products);
   }, [products]);
+
+  const total: number = useMemo(() => {
+    return computeTotalProductsToCart(products);
+  }, [products]);
+
+  const totalDiscount = subTotal - total;
 
   useEffect(() => {
     setProducts(
@@ -111,14 +118,6 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   }, []);
 
-  const total = useMemo(() => {
-    return products.reduce(
-      (acc, product) => acc + Number(product.totalPrice) * product.quantity,
-      0,
-    );
-  }, [products]);
-
-  const totalDiscount = subTotal - total;
   useEffect(() => {
     localStorage.setItem("@fsw-store/cart-products", JSON.stringify(products));
   }, [products]);

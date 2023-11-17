@@ -30,7 +30,7 @@ const OrderProductItem = ({ orderProducts }: OrderProductsItemProps) => {
             Vendido e entregue por <span className="font-bold">FSW store</span>
           </p>
         </div>
-        <p className="text-xs">{product.name}</p>
+        <p className="text-xs">{orderProducts.product.name}</p>
         <div className="flex w-full items-center justify-between gap-1">
           <div className="flex items-center gap-1">
             <p className="text-sm font-bold">
